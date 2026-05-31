@@ -129,6 +129,116 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 4px;
         }
+
+        /* Gallery Carousel Styles */
+        .gallery-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8fafc;
+            border-radius: 1rem;
+        }
+
+        .gallery-main-image {
+            width: 100%;
+            height: 400px;
+            object-fit: contain;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .gallery-nav-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .gallery-nav-btn.prev {
+            left: 10px;
+        }
+
+        .gallery-nav-btn.next {
+            right: 10px;
+        }
+
+        .gallery-thumbnails {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            overflow-x: auto;
+            padding: 10px;
+            scrollbar-width: thin;
+        }
+
+        .gallery-thumbnail {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .gallery-thumbnail.active {
+            border-color: #667eea;
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .gallery-thumbnail:hover {
+            transform: scale(1.05);
+            border-color: #cbd5e1;
+        }
+
+        .image-counter {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-main-image {
+                height: 300px;
+            }
+            .gallery-thumbnail {
+                width: 55px;
+                height: 55px;
+            }
+            .gallery-nav-btn {
+                width: 32px;
+                height: 32px;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -221,15 +331,15 @@
                 <!-- Stats -->
                 <div class="mt-12 grid grid-cols-3 gap-8 max-w-xl mx-auto">
                     <div class="text-center">
-                        <div class="text-3xl md:text-4xl font-bold text-white">K+</div>
+                        <div class="text-3xl md:text-4xl font-bold text-white">1K+</div>
                         <div class="text-white/70 text-sm">Active Listings</div>
                     </div>
                     <div class="text-center">
-                        <div class="text-3xl md:text-4xl font-bold text-white">K</div>
+                        <div class="text-3xl md:text-4xl font-bold text-white">500+</div>
                         <div class="text-white/70 text-sm">Happy Customers</div>
                     </div>
                     <div class="text-center">
-                        <div class="text-3xl md:text-4xl font-bold text-white">%</div>
+                        <div class="text-3xl md:text-4xl font-bold text-white">98%</div>
                         <div class="text-white/70 text-sm">Satisfied Buyers</div>
                     </div>
                 </div>
@@ -320,7 +430,7 @@
         </div>
     </section>
 
-            <!-- Features Section -->
+    <!-- Features Section -->
     <section class="py-20 bg-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
@@ -328,7 +438,6 @@
                 <p class="text-gray-600 max-w-2xl mx-auto">Join the marketplace for Yuki-cos items</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                
                 <!-- Button 1 - Links to Vinted -->
                 <div class="bg-white rounded-3xl p-8 text-center shadow-lg hover:shadow-xl transition">
                     <div class="w-20 h-20 gradient-bg rounded-3xl flex items-center justify-center mx-auto mb-6">
@@ -358,7 +467,6 @@
                     <h3 class="text-xl font-bold text-gray-800 mb-3">Button</h3>
                     <p class="text-gray-600">Press Button</p>
                 </div>
-
             </div>
         </div>
     </section>
@@ -532,7 +640,7 @@
     </div>
 
     <script>
-        // Sample product data
+        // Sample product data with multiple images
         const products = [
             {
                 id: 1,
@@ -545,7 +653,11 @@
                 location: "Athens, Greece",
                 seller: "Yuki-cos",
                 verified: true,
-                images: ["https://Yuki-cos.github.io/joystick.jpg"],
+                images: [
+                    "https://Yuki-cos.github.io/joystick.jpg",
+                    "https://via.placeholder.com/400x400?text=Joystick+Image+2",
+                    "https://via.placeholder.com/400x400?text=Joystick+Image+3"
+                ],
                 description: "Without case but never used. Perfect condition with no flaws.",
                 likes: 24
             },
@@ -560,7 +672,12 @@
                 location: "Athens",
                 seller: "Yuki-cos",
                 verified: true,
-                images: ["https://Yuki-cos.github.io/Figure1.jpg"],
+                images: [
+                    "https://Yuki-cos.github.io/Figure1.jpg",
+                    "https://via.placeholder.com/400x400?text=Uryu+Figure+2",
+                    "https://via.placeholder.com/400x400?text=Uryu+Figure+3",
+                    "https://via.placeholder.com/400x400?text=Uryu+Figure+4"
+                ],
                 description: "Brand new Uryu Ishida figure.",
                 likes: 30
             },
@@ -575,7 +692,10 @@
                 location: "Athens",
                 seller: "Yuki-cos",
                 verified: false,
-                images: ["https://Yuki-cos.github.io/Figure21.jpg"],
+                images: [
+                    "https://Yuki-cos.github.io/Figure21.jpg",
+                    "https://via.placeholder.com/400x400?text=Ashe+Figure+2"
+                ],
                 description: "Lovely Ashe Figure.",
                 likes: 28
             },
@@ -590,7 +710,11 @@
                 location: "Athens",
                 seller: "Yuki-cos",
                 verified: true,
-                images: ["https://Yuki-cos.github.io/Figure31.jpg"],
+                images: [
+                    "https://Yuki-cos.github.io/Figure31.jpg",
+                    "https://via.placeholder.com/400x400?text=Nami+Figure+2",
+                    "https://via.placeholder.com/400x400?text=Nami+Figure+3"
+                ],
                 description: "Excellent Nami Figure",
                 likes: 22
             },
@@ -605,7 +729,9 @@
                 location: "Athens",
                 seller: "Yuki-cos",
                 verified: true,
-                images: ["https://Yuki-cos.github.io/Figure32.jpg"],
+                images: [
+                    "https://Yuki-cos.github.io/Figure32.jpg"
+                ],
                 description: "Perfect Nami Figure",
                 likes: 12
             },
@@ -620,7 +746,10 @@
                 location: "Athens",
                 seller: "Yuki-cos",
                 verified: true,
-                images: ["https://Yuki-cos.github.io/Figure33.jpg"],
+                images: [
+                    "https://Yuki-cos.github.io/Figure33.jpg",
+                    "https://via.placeholder.com/400x400?text=Nami+Set+2"
+                ],
                 description: "Figures. In Box.",
                 likes: 20
             },
@@ -635,7 +764,9 @@
                 location: "Athens",
                 seller: "Yuki-cos",
                 verified: false,
-                images: ["https://Yuki-cos.github.io/Figure22.jpg"],
+                images: [
+                    "https://Yuki-cos.github.io/Figure22.jpg"
+                ],
                 description: "Cute Ashe Figure",
                 likes: 8
             },
@@ -650,7 +781,11 @@
                 location: "Athens",
                 seller: "Yuki-cos",
                 verified: true,
-                images: ["https://Yuki-cos.github.io/Figure23.jpg"],
+                images: [
+                    "https://Yuki-cos.github.io/Figure23.jpg",
+                    "https://via.placeholder.com/400x400?text=Ashe+Wig+2",
+                    "https://via.placeholder.com/400x400?text=Ashe+Wig+3"
+                ],
                 description: "Good quality Ashe Figure",
                 likes: 35
             }
@@ -677,6 +812,7 @@
                             <span class="px-3 py-1 bg-white/90 rounded-full text-xs font-medium text-gray-700 capitalize">${product.condition}</span>
                         </div>
                         ${product.verified ? '<div class="absolute bottom-3 left-3 badge-verified px-2 py-1 rounded-full text-xs font-medium text-white flex items-center"><i class="fas fa-check mr-1"></i>Verified</div>' : ''}
+                        ${product.images.length > 1 ? '<div class="absolute bottom-3 right-3 bg-black/50 text-white px-2 py-1 rounded-md text-xs flex items-center"><i class="fas fa-images mr-1"></i>' + product.images.length + '</div>' : ''}
                     </div>
                     <div class="p-4">
                         <div class="flex items-center text-xs text-gray-500 mb-2">
@@ -738,7 +874,6 @@
         function closeUploadModal() {
             document.getElementById('uploadModal').classList.add('hidden');
             document.body.style.overflow = 'auto';
-            // Reset form
             document.getElementById('uploadForm').reset();
             selectedImages = [];
             document.getElementById('previewImages').innerHTML = '';
@@ -795,61 +930,104 @@
             showToast('Your item has been listed successfully!');
         }
 
-        // Open product modal
+        // Gallery state for product modal
+        let currentProduct = null;
+        let currentImageIndex = 0;
+
+        // Open product modal with gallery
         function openProductModal(productId) {
-            const product = products.find(p => p.id === productId);
-            if (!product) return;
+            currentProduct = products.find(p => p.id === productId);
+            if (!currentProduct) return;
             
+            currentImageIndex = 0;
+            renderProductModal();
+            
+            document.getElementById('productModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Render product modal with gallery
+        function renderProductModal() {
             const modalContent = document.getElementById('productModalContent');
+            const hasMultipleImages = currentProduct.images.length > 1;
+            
             modalContent.innerHTML = `
                 <div class="relative">
-                    <button onclick="closeProductModal()" class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/90 rounded-full flex items-center justify-center hover:bg-white transition shadow-lg">
+                    <button onclick="closeProductModal()" class="absolute top-4 right-4 z-20 w-10 h-10 bg-white/90 rounded-full flex items-center justify-center hover:bg-white transition shadow-lg">
                         <i class="fas fa-times text-gray-600"></i>
                     </button>
                     <div class="grid grid-cols-1 md:grid-cols-2">
-                        <div class="p-4">
-                            <img src="${product.images[0]}" alt="${product.title}" class="w-full h-80 md:h-full object-cover rounded-2xl">
+                        <!-- Gallery Section -->
+                        <div class="p-4 bg-gray-50">
+                            <div class="gallery-container">
+                                <img id="galleryMainImage" src="${currentProduct.images[0]}" alt="${currentProduct.title}" class="gallery-main-image">
+                                
+                                ${hasMultipleImages ? `
+                                    <div class="gallery-nav-btn prev" onclick="event.stopPropagation(); previousImage()">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </div>
+                                    <div class="gallery-nav-btn next" onclick="event.stopPropagation(); nextImage()">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </div>
+                                    <div class="image-counter" id="imageCounter">
+                                        ${currentImageIndex + 1} / ${currentProduct.images.length}
+                                    </div>
+                                ` : ''}
+                            </div>
+                            
+                            ${hasMultipleImages ? `
+                                <div class="gallery-thumbnails" id="galleryThumbnails">
+                                    ${currentProduct.images.map((img, idx) => `
+                                        <img src="${img}" 
+                                             class="gallery-thumbnail ${idx === currentImageIndex ? 'active' : ''}" 
+                                             onclick="event.stopPropagation(); setImageIndex(${idx})"
+                                             alt="Thumbnail ${idx + 1}">
+                                    `).join('')}
+                                </div>
+                            ` : ''}
                         </div>
+                        
+                        <!-- Product Info Section -->
                         <div class="p-6 md:p-8">
                             <div class="flex items-center space-x-2 mb-4">
-                                <span class="px-3 py-1 bg-purple-100 text-purple-600 rounded-full text-sm font-medium capitalize">${product.condition}</span>
-                                ${product.verified ? '<span class="px-3 py-1 badge-verified text-white rounded-full text-sm font-medium flex items-center"><i class="fas fa-check mr-1"></i>Verified</span>' : ''}
+                                <span class="px-3 py-1 bg-purple-100 text-purple-600 rounded-full text-sm font-medium capitalize">${currentProduct.condition}</span>
+                                ${currentProduct.verified ? '<span class="px-3 py-1 badge-verified text-white rounded-full text-sm font-medium flex items-center"><i class="fas fa-check mr-1"></i>Verified</span>' : ''}
                             </div>
-                            <h2 class="text-2xl font-bold text-gray-800 mb-2">${product.title}</h2>
+                            <h2 class="text-2xl font-bold text-gray-800 mb-2">${currentProduct.title}</h2>
                             <div class="flex items-center text-gray-500 mb-4">
                                 <i class="fas fa-map-marker-alt mr-1"></i>
-                                ${product.location}
+                                ${currentProduct.location}
                             </div>
                             <div class="mb-6">
-                                <span class="text-4xl font-bold text-purple-600">$${product.price.toFixed(2)}</span>
-                                <span class="text-lg text-gray-400 line-through ml-2">$${product.originalPrice.toFixed(2)}</span>
+                                <span class="text-4xl font-bold text-purple-600">$${currentProduct.price.toFixed(2)}</span>
+                                <span class="text-lg text-gray-400 line-through ml-2">$${currentProduct.originalPrice.toFixed(2)}</span>
                                 <span class="ml-2 px-2 py-1 bg-green-100 text-green-600 rounded text-sm font-medium">
-                                    ${Math.round((1 - product.price/product.originalPrice) * 100)}% OFF
+                                    ${Math.round((1 - currentProduct.price/currentProduct.originalPrice) * 100)}% OFF
                                 </span>
                             </div>
                             <div class="space-y-3 mb-6">
                                 <div class="flex justify-between py-2 border-b border-gray-100">
                                     <span class="text-gray-500">Size</span>
-                                    <span class="font-medium">${product.size}</span>
+                                    <span class="font-medium">${currentProduct.size}</span>
                                 </div>
                                 <div class="flex justify-between py-2 border-b border-gray-100">
                                     <span class="text-gray-500">Category</span>
-                                    <span class="font-medium capitalize">${product.category}</span>
+                                    <span class="font-medium capitalize">${currentProduct.category}</span>
                                 </div>
                                 <div class="flex justify-between py-2 border-b border-gray-100">
                                     <span class="text-gray-500">Seller</span>
                                     <div class="flex items-center space-x-2">
                                         <div class="w-6 h-6 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-                                            <span class="text-white text-xs font-bold">${product.seller[0]}</span>
+                                            <span class="text-white text-xs font-bold">${currentProduct.seller[0]}</span>
                                         </div>
-                                        <span class="font-medium">${product.seller}</span>
+                                        <span class="font-medium">${currentProduct.seller}</span>
                                     </div>
                                 </div>
                             </div>
-                            <p class="text-gray-600 mb-6">${product.description}</p>
+                            <p class="text-gray-600 mb-6">${currentProduct.description}</p>
                             <div class="flex space-x-4">
-                                <button onclick="toggleLike(${product.id}); closeProductModal();" class="flex-1 py-4 rounded-xl font-semibold border-2 border-purple-600 text-purple-600 hover:bg-purple-50 transition flex items-center justify-center space-x-2">
-                                    <i class="fas fa-heart ${likedProducts.has(product.id) ? 'text-red-500' : ''}"></i>
+                                <button onclick="toggleLikeFromModal(${currentProduct.id})" class="flex-1 py-4 rounded-xl font-semibold border-2 border-purple-600 text-purple-600 hover:bg-purple-50 transition flex items-center justify-center space-x-2">
+                                    <i class="fas fa-heart ${likedProducts.has(currentProduct.id) ? 'text-red-500' : ''}"></i>
                                     <span>Save</span>
                                 </button>
                                 <button class="flex-1 py-4 rounded-xl font-semibold gradient-bg text-white hover:shadow-lg hover:shadow-purple-300 transition flex items-center justify-center space-x-2">
@@ -861,15 +1039,69 @@
                     </div>
                 </div>
             `;
+        }
+
+        // Gallery navigation functions
+        function nextImage() {
+            if (currentProduct && currentImageIndex < currentProduct.images.length - 1) {
+                currentImageIndex++;
+                updateGalleryDisplay();
+            }
+        }
+
+        function previousImage() {
+            if (currentProduct && currentImageIndex > 0) {
+                currentImageIndex--;
+                updateGalleryDisplay();
+            }
+        }
+
+        function setImageIndex(index) {
+            if (currentProduct && index >= 0 && index < currentProduct.images.length) {
+                currentImageIndex = index;
+                updateGalleryDisplay();
+            }
+        }
+
+        function updateGalleryDisplay() {
+            // Update main image
+            const mainImage = document.getElementById('galleryMainImage');
+            if (mainImage) {
+                mainImage.src = currentProduct.images[currentImageIndex];
+            }
             
-            document.getElementById('productModal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
+            // Update image counter
+            const counter = document.getElementById('imageCounter');
+            if (counter) {
+                counter.textContent = `${currentImageIndex + 1} / ${currentProduct.images.length}`;
+            }
+            
+            // Update thumbnail active states
+            const thumbnails = document.querySelectorAll('.gallery-thumbnail');
+            thumbnails.forEach((thumb, idx) => {
+                if (idx === currentImageIndex) {
+                    thumb.classList.add('active');
+                } else {
+                    thumb.classList.remove('active');
+                }
+            });
+        }
+
+        // Toggle like from modal
+        function toggleLikeFromModal(productId) {
+            toggleLike(productId);
+            // Re-render the modal to update the heart icon
+            if (currentProduct && currentProduct.id === productId) {
+                renderProductModal();
+            }
         }
 
         // Close product modal
         function closeProductModal() {
             document.getElementById('productModal').classList.add('hidden');
             document.body.style.overflow = 'auto';
+            currentProduct = null;
+            currentImageIndex = 0;
         }
 
         // Show toast
@@ -886,34 +1118,36 @@
         // Drag and drop for upload zone
         const uploadZone = document.getElementById('uploadZone');
         
-        ['dragenter', 'dragover'].forEach(eventName => {
-            uploadZone.addEventListener(eventName, (e) => {
-                e.preventDefault();
-                uploadZone.classList.add('dragover');
+        if (uploadZone) {
+            ['dragenter', 'dragover'].forEach(eventName => {
+                uploadZone.addEventListener(eventName, (e) => {
+                    e.preventDefault();
+                    uploadZone.classList.add('dragover');
+                });
             });
-        });
 
-        ['dragleave', 'drop'].forEach(eventName => {
-            uploadZone.addEventListener(eventName, (e) => {
-                e.preventDefault();
-                uploadZone.classList.remove('dragover');
+            ['dragleave', 'drop'].forEach(eventName => {
+                uploadZone.addEventListener(eventName, (e) => {
+                    e.preventDefault();
+                    uploadZone.classList.remove('dragover');
+                });
             });
-        });
 
-        uploadZone.addEventListener('drop', (e) => {
-            const files = e.dataTransfer.files;
-            if (files.length > 0) {
-                document.getElementById('imageInput').files = files;
-                handleImageSelect({ target: { files: files }});
-            }
-        });
+            uploadZone.addEventListener('drop', (e) => {
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    document.getElementById('imageInput').files = files;
+                    handleImageSelect({ target: { files: files }});
+                }
+            });
+        }
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             renderProducts();
             
-            // Add active class to first category pill
-            document.querySelector('.category-pill').classList.add('active');
+            const firstPill = document.querySelector('.category-pill');
+            if (firstPill) firstPill.classList.add('active');
         });
 
         // Close modals on escape key
